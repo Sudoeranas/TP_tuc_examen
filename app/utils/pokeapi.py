@@ -26,13 +26,22 @@ def battle_pokemon(first_api_id, second_api_id):
     """
         Do battle between 2 pokemons
     """
-    premierPokemon = get_pokemon_data(first_api_id)
-    secondPokemon = get_pokemon_data(second_api_id)
-    battle_result = 0
-    return premierPokemon if battle_result > 0 else secondPokemon if battle_result < 0 else {'winner': 'draw'}
-
+    premier_pokemon = get_pokemon_data(first_api_id)
+    second_pokemon = get_pokemon_data(second_api_id)
+    if premier_pokemon and second_pokemon:
+        battle_result = battle_compare_stats(premier_pokemon["stats"], second_pokemon["stats"])
+        if battle_result > 0:
+            return {"Result": first_api_id}
+        if battle_result < 0:
+            return {"Result": second_api_id}
+        return {"Result": "Draw"}
+    return None
 
 def battle_compare_stats(first_pokemon_stats, second_pokemon_stats):
     """
         Compare given stat between two pokemons
     """
+    result = 0
+    for index, stats in enumerate(first_pokemon_stats):
+        result += stats["base_stat"] - second_pokemon_stats[index]["base_stat"]
+    return result

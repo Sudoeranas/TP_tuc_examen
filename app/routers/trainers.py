@@ -1,3 +1,23 @@
+"""
+Module implémentant une interface API FastAPI pour la gestion des opérations relatives aux formateurs dans le contexte d'une application Pokémon.
+
+Ce module expose des points d'accès pour créer, récupérer et effectuer des opérations sur les formateurs, ainsi que pour ajouter des objets et des Pokémon à l'inventaire d'un formateur. Ces opérations font appel à des fonctions définies dans les modules 'actions', 'schemas' et 'utils', ainsi qu'à des dépendances.
+
+Classes et objets :
+- router : Instance de APIRouter utilisée pour définir les routes de l'API.
+
+Fonctions :
+- create_trainer(formateur: schemas.TrainerCreate, base_de_donnees: Session = Depends(get_db))
+-> schemas.Trainer:
+Point de terminaison POST pour créer un formateur.
+Paramètres :
+- formateur (schemas.TrainerCreate) : Données du nouveau formateur.
+- base_de_donnees (Session) : Session SQLAlchemy pour accéder à la base de données.
+Retourne :
+- schemas.Trainer : Formateur créé.
+"""
+
+
 from typing import List
 from sqlalchemy.orm import Session
 from fastapi import APIRouter,  Depends, HTTPException
@@ -9,7 +29,7 @@ router = APIRouter()
 @router.post("/", response_model=schemas.Trainer)
 def create_trainer(trainer: schemas.TrainerCreate, database: Session = Depends(get_db)):
     """
-        Create a trainer
+        Créer un formateur
     """
     return actions.create_trainer(database=database, trainer=trainer)
 
@@ -17,8 +37,8 @@ def create_trainer(trainer: schemas.TrainerCreate, database: Session = Depends(g
 @router.get("", response_model=List[schemas.Trainer])
 def get_trainers(skip: int = 0, limit: int = 100, database: Session = Depends(get_db)):
     """
-        Return all trainers
-        Default limit is 100
+        retourne tous les formateurs
+        limite 100 par défaut
     """
     trainers = actions.get_trainers(database, skip=skip, limit=limit)
     return trainers
@@ -27,7 +47,7 @@ def get_trainers(skip: int = 0, limit: int = 100, database: Session = Depends(ge
 @router.get("/{trainer_id}", response_model=schemas.Trainer)
 def get_trainer(trainer_id: int, database: Session = Depends(get_db)):
     """
-        Return trainer from his id
+        retourne un formateur par son ID
     """
     db_trainer = actions.get_trainer(database, trainer_id=trainer_id)
     if db_trainer is None:
@@ -40,7 +60,7 @@ def create_item_for_trainer(
     trainer_id: int, item: schemas.ItemCreate, database: Session = Depends(get_db)
 ):
     """
-        Add an item in trainer inventory
+        Ajouter un objet à un formateur
     """
     return actions.add_trainer_item(database=database, item=item, trainer_id=trainer_id)
 
