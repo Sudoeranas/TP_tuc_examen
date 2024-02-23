@@ -45,8 +45,7 @@ Exécuter à la racine du dossier
 
 ## Locust
 
-> locust # nécessite d'avoir un fichier locustfile.py dans le dossier où la commande est exécuté
-> locust --config=.locust.conf
+> locust -f locust.py
 
 ## Pylint
 
