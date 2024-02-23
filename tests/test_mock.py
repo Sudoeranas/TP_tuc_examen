@@ -25,7 +25,7 @@ def test_create_trainer(mocker):
     response = client.post("/trainers/", json={"name": "Younes", "birthdate": "1995-11-25"})
     assert response.status_code == 200
     assert (response.json() ==
-            {"name": "younes", "birthdate": "1995-11-04", "id": 1, "inventory": [], "pokemons": []})
+            {"name": "Younes", "birthdate": "1995-11-25", "id": 1, "inventory": [], "pokemons": []})
 
 
 def test_get_items(mocker):
