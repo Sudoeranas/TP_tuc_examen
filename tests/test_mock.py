@@ -15,17 +15,17 @@ def test_create_trainer(mocker):
     mocker.patch(
         "app.actions.create_trainer",
         return_value={
-            "name": "Younes",
-            "birthdate": "1995-11-25",
+            "name": "Tom",
+            "birthdate": "1990-11-04",
             "id": 1,
             "inventory": [],
             "pokemons": []
         }
     )
-    response = client.post("/trainers/", json={"name": "Younes", "birthdate": "1995-11-25"})
+    response = client.post("/trainers/", json={"name": "Tom", "birthdate": "1990-11-04"})
     assert response.status_code == 200
     assert (response.json() ==
-            {"name": "younes", "birthdate": "1995-11-04", "id": 1, "inventory": [], "pokemons": []})
+            {"name": "Tom", "birthdate": "1990-11-04", "id": 1, "inventory": [], "pokemons": []})
 
 
 def test_get_items(mocker):
