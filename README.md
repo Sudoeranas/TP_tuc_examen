@@ -1,5 +1,10 @@
 # Anas Ikli, Younes Ouartassi, Yacine Kerrad
 
+Plan Des tests : 
+https://docs.google.com/document/d/1Z66k990kGvgd-aBt-q1VCxnfxZOu_j1AM7N2Av2_vd4/edit?usp=sharing
+
+
+
 ## Préparer son environnement
 
 Installer le paquet virtualenv
