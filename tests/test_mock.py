@@ -1,85 +1,88 @@
+"""
+ Test unitaire mock
+"""
+
 from fastapi.testclient import TestClient
 from main import app
 
 client = TestClient(app)
 
 
-# Test 1 : Création d'un nouveau coach + vérification de la création
-def test_create_coach(mocker):
+def test_create_trainer(mocker):
     """
-        Création d'un coach
+        Creation d'un trainer
     """
     mocker.patch(
-        "app.actions.create_coach",
+        "app.actions.create_trainer",
         return_value={
-            "name": "John",
-            "birthdate": "1985-05-20",
+            "name": "Tom",
+            "birthdate": "1990-11-04",
             "id": 1,
             "inventory": [],
-            "creatures": []
+            "pokemons": []
         }
     )
-    response = client.post("/coaches/", json={"name": "Alice", "birthdate": "1985-05-20"})
+    response = client.post("/trainers/", json={"name": "Tom", "birthdate": "1990-11-04"})
     assert response.status_code == 200
     assert (response.json() ==
-            {"name": "Alice", "birthdate": "1985-05-20", "id": 1, "inventory": [], "creatures": []})
+            {"name": "Tom", "birthdate": "1990-11-04", "id": 1, "inventory": [], "pokemons": []})
 
 
-def test_get_objects(mocker):
-    mocker.patch("app.actions.get_objects",
+def test_get_items(mocker):
+    mocker.patch("app.actions.get_items",
                  return_value=[
                      {
-                         "name": "sword",
-                         "description": "sharp weapon",
+                         "name": "test",
+                         "description": "test",
                          "id": 1,
-                         "owner_id": 2
+                         "trainer_id": 2
                      },
                      {
-                         "name": "shield",
-                         "description": "protective gear",
-                         "id": 2,
-                         "owner_id": 1
+                         "name": "test2",
+                         "description": "test2",
+                         "id": 1,
+                         "trainer_id": 1
                      }
                  ])
-    response = client.get("/objects")
+    response = client.get("/items")
     assert response.status_code == 200
     assert len(response.json()) == 2
 
 
-def test_get_coaches(mocker):
-    mocker.patch("app.actions.get_coaches",
+def test_get_trainers(mocker):
+    mocker.patch("app.actions.get_trainers",
                  return_value=[
                      {
-                         "name": "Alice",
-                         "birthdate": "1985-05-20",
+                         "name": "Younes",
+                         "birthdate": "1995-12-04",
                          "id": 1,
                          "inventory": [],
-                         "creatures": []
+                         "pokemons": []
                      }
                  ])
-    response = client.get("/coaches")
+    response = client.get("/trainers")
     assert response.status_code == 200
     assert len(response.json()) == 1
 
 
-def test_get_monsters(mocker):
-    mocker.patch("app.actions.get_monsters",
+def test_get_pokemon(mocker):
+    mocker.patch("app.actions.get_pokemons",
                  return_value=[
                      {
                          "api_id": 150,
-                         "custom_name": "Monster1",
+                         "custom_name": "test",
                          "id": 1,
-                         "name": "goblin",
-                         "owner_id": 1
+                         "name": "mewtwo",
+                         "trainer_id": 1
                      },
                      {
                          "api_id": 56,
-                         "custom_name": "Monster2",
+                         "custom_name": "test2",
                          "id": 2,
-                         "name": "dragon",
-                         "owner_id": 2
+                         "name": "mankey",
+                         "trainer_id": 2
                      }
                  ])
-    response = client.get("/monsters")
+    response = client.get("/pokemons")
     assert response.status_code == 200
     assert len(response.json()) == 2
