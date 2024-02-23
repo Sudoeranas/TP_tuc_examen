@@ -1,4 +1,4 @@
-# Anas Ikli, Younes Ouartassi, Yacine Kerrad, Giles Eyango
+# Anas Ikli, Younes Ouartassi, Yacine Kerrad
 
 ## Préparer son environnement
 
