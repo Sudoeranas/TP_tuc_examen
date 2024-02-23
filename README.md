@@ -8,7 +8,7 @@ Installer le paquet virtualenv
 
 Créer l'environnement virtuel
 
-> python -m virtualenv venv
+> python -m venv venv
 
 venv correspond au chemin/dossier dans lequel sera activé votre environnement virtuel
 (Dans notre cas, dans le dossier où est exécuté la commande, dans le dossier venv)
@@ -16,7 +16,7 @@ venv correspond au chemin/dossier dans lequel sera activé votre environnement v
 Activer l'environnement virtuel
 
 > Linux/Mac : source venv/bin/activate
-> Windows : ./venv/Scripts/activate.ps1
+> Windows : ./venv/Scripts/activate
 
 Si sur windows vous ne pouvez exécuter le script en .ps1, ouvrer un powershelle en admin et exécuter
 > set-executionpolicy unrestricted
@@ -40,6 +40,10 @@ Exécuter dans le dossier application
 
 > coverage run -m pytest --profile # remplace la commande python
 > coverage html # génère le rapport en html
+
+##Pourcentage coverage : 
+
+coverage report --fail-under=90
 
 Exécuter à la racine du dossier
 
