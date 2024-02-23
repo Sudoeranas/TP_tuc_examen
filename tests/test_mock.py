@@ -29,6 +29,9 @@ def test_create_trainer(mocker):
 
 
 def test_get_items(mocker):
+    """
+        Recuperation des items
+        """
     mocker.patch("app.actions.get_items",
                  return_value=[
                      {
@@ -50,6 +53,8 @@ def test_get_items(mocker):
 
 
 def test_get_trainers(mocker):
+    """
+    ²   Recuperation des trainers"""
     mocker.patch("app.actions.get_trainers",
                  return_value=[
                      {
@@ -66,6 +71,9 @@ def test_get_trainers(mocker):
 
 
 def test_get_pokemon(mocker):
+    """
+        Recuperation des pokemons
+        """
     mocker.patch("app.actions.get_pokemons",
                  return_value=[
                      {

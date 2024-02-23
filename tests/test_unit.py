@@ -7,8 +7,7 @@ from typing import Dict, Union
 
 from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
-from sqlalchemy.orm import Session, sessionmaker
-import pytest
+from sqlalchemy.orm import sessionmaker
 
 from app import models
 from app.actions import (get_trainer, get_trainer_by_name, get_trainers,
@@ -22,10 +21,13 @@ client = TestClient(app)
 
 
 def init_test_database():
+    """
+    Initialiser une base de données de test
+    """
     # Créer une session de base de données en mémoire pour les tests
     engine = create_engine('sqlite:///:memory:')
-    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-    database = SessionLocal()
+    session_local = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    database = session_local()
 
     # Créer les tables dans la base de données de test
     models.Base.metadata.create_all(bind=engine)
@@ -34,6 +36,9 @@ def init_test_database():
 
 
 def test_get_trainer():
+    """
+    Récupérer un entraîneur par son id
+    """
     database = init_test_database()
 
     test_birthdate = date(2000, 1, 1)
@@ -50,6 +55,9 @@ def test_get_trainer():
 
 
 def test_get_trainer_by_name():
+    """
+    Récupérer un entraîneur par son nom
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -75,6 +83,9 @@ def test_get_trainer_by_name():
 
 
 def test_get_trainers():
+    """
+    Récupérer tous les entraîneurs de la base de données
+    """
     database = init_test_database()
 
     test_trainer1 = models.Trainer(id=1, name="Test Trainer 1", birthdate=date(2000, 1, 1))
@@ -96,6 +107,9 @@ def test_get_trainers():
 
 
 def test_create_trainer():
+    """
+    Créer un entraîneur dans la base de données
+    """
     database = init_test_database()
 
     test_trainer1 = models.Trainer(id=1, name="Test Trainer 1", birthdate=date(2000, 1, 1))
@@ -117,10 +131,16 @@ def test_create_trainer():
 
 
 def create_pokemon_create(data: Dict[str, Union[int, str]]) -> PokemonCreate:
+    """
+    Créer une instance de PokemonCreate à partir de données de test
+    """
     return PokemonCreate(**data)
 
 
 def test_add_trainer_pokemon():
+    """
+    Ajouter un Pokémon à un entraîneur
+    """
     database = init_test_database()
 
     test_trainer1 = models.Trainer(id=1, name="Test Trainer 1", birthdate=date(2000, 1, 1))
@@ -155,10 +175,16 @@ def test_add_trainer_pokemon():
 
 
 def create_item_create(data: dict) -> ItemCreate:
+    """
+    Créer une instance de ItemCreate à partir de données de test
+    """
     return ItemCreate(**data)
 
 
 def test_add_trainer_item():
+    """
+    Ajouter un item à un entraîneur
+    """
     database = init_test_database()
 
     test_trainer1 = models.Trainer(id=1, name="Test Trainer 1", birthdate=date(2000, 1, 1))
@@ -190,7 +216,9 @@ def test_add_trainer_item():
 
 
 def test_get_items():
-    # Initialiser la base de données de test
+    """ 
+    Initialiser la base de données de test
+    """
     database = init_test_database()
 
     test_trainer_data = models.Trainer(id=1, name="Test Trainer 1", birthdate=date(2000, 1, 1))
@@ -224,6 +252,9 @@ def test_get_items():
 
 
 def test_get_pokemon():
+    """
+    test de récupération d'un pokemon par son id
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -268,6 +299,9 @@ def test_get_pokemon():
 
 
 def test_get_pokemons():
+    """
+    Récupérer tous les Pokémon de la base de données
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -315,6 +349,9 @@ def test_get_pokemons():
 
 
 def test_get_pokemon_count():
+    """
+    Récupérer le nombre de Pokémon pour un entraîneur
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -353,6 +390,9 @@ def test_get_pokemon_count():
 
 
 def test_trainer_str_representation():
+    """
+    Test de la représentation sous forme de chaîne d'un entraîneur
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -376,6 +416,9 @@ def test_trainer_str_representation():
 
 
 def test_pokemon_str_representation():
+    """
+    Test de la représentation sous forme de chaîne d'un Pokémon
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -408,6 +451,9 @@ def test_pokemon_str_representation():
 
 
 def test_pokemon_to_dict():
+    """
+    Test de la méthode to_dict d'un Pokémon
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -444,6 +490,9 @@ def test_pokemon_to_dict():
 
 
 def test_item_str_representation():
+    """
+    Test de la représentation sous forme de chaîne d'un item
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
@@ -472,6 +521,9 @@ def test_item_str_representation():
 
 
 def test_item_to_dict():
+    """
+    Test de la méthode to_dict d'un item
+    """
     # Initialiser la base de données de test
     database = init_test_database()
 
